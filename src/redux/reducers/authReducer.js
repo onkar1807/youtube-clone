@@ -1,7 +1,8 @@
 import { LOAD_PROFILE, 
     LOGIN_FAILURE, 
     LOGIN_REQUEST, 
-    LOGIN_SUCCESS 
+    LOGIN_SUCCESS, 
+    LOG_OUT
 } from "../actionType"
 
 const initialState = {
@@ -42,6 +43,13 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload
+            }
+
+        case LOG_OUT:
+            return {
+                ...state,
+                accesstoken: null,
+                user: null
             }
 
         default:

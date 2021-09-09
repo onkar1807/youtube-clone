@@ -6,6 +6,7 @@ import LoginScreen from './components/screens/loginScreen/LoginScreen'
 import Sidebar from './components/sidebar/Sidebar'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import './_app.scss'
+import { useSelector } from 'react-redux'
 
 
 const Layout = ({ children }) => {
@@ -35,11 +36,11 @@ const App = () => {
     const { accessToken, loading } = useSelector(state => state.auth);
     const history = useHistory();
 
-    useEffect(() => {
-        if (!loading && !accessToken) {
-            history.push('/auth')
-        }
-    }, [accessToken, loading])
+    // useEffect(() => {
+    //     if (!loading && !accessToken) {
+    //         history.push('/auth')
+    //     }
+    // }, [accessToken, loading, history])
 
     return (
         <Switch>

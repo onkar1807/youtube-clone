@@ -1,0 +1,23 @@
+@import '../../_base.scss';
+
+.comments_form {
+    img {
+        width: 50px;
+        object-fit: contain;
+        margin-right: 1rem;
+    }
+
+    input {
+        background: transparent;
+        color: #fff;
+        border: none;
+        border-bottom: 2px solid #353946;
+        outline: none;
+    }
+
+    button {
+        background: #353946;
+        color: #fff;
+        letter-spacing: 0.5px;
+    }
+}

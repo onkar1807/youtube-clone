@@ -5,17 +5,17 @@ import { MdNotifications, MdApps } from 'react-icons/md'
 import './_header.scss'
 
 
-const Header = ({handleToggleSidebar}) => {
+const Header = ({ handleToggleSidebar }) => {
     return (
         <div className="header">
-            <FaBars 
-                className="header_menu" 
-                size={26} 
-                onClick={handleToggleSidebar} 
+            <FaBars
+                className="header_menu"
+                size={26}
+                onClick={handleToggleSidebar}
             />
 
-            <img 
-                src="https://www.iconpacks.net/icons/2/free-youtube-logo-icon-2431-thumb.png" 
+            <img
+                src="https://www.iconpacks.net/icons/2/free-youtube-logo-icon-2431-thumb.png"
                 alt=""
                 className="header_logo"
             />
@@ -32,7 +32,7 @@ const Header = ({handleToggleSidebar}) => {
                 <MdApps size={28} />
                 <img
                     src="https://e7.pngegg.com/pngimages/340/946/png-clipart-avatar-user-computer-icons-software-developer-avatar-child-face-thumbnail.png"
-                    alt="avatar" 
+                    alt="avatar"
                 />
             </div>
         </div>

@@ -1,0 +1,17 @@
+.comment {
+    font-size: 0.9rem;
+    border-bottom: 2px solid #353946;
+    
+    img {
+        width: 50px;
+        height: 55px;
+        object-fit: contain;
+        margin-right: 1rem;
+    }
+
+    &_header {
+        color: #fff;
+        margin-bottom: 2px;
+       
+    }
+}

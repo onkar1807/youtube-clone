@@ -19,8 +19,9 @@
 
         &_duration {
             position: absolute;
-            bottom: 0.3rem;
-            right: 0.3rem;
+            bottom: 0.5rem;
+            right: 1.2rem;
+            font-size: 0.9rem;
             padding: 0.2rem;
             background: #080808ec;
             border-radius: 3px;
@@ -34,14 +35,13 @@
             font-size: 1rem;
             color: #fff;
             letter-spacing: 0.3px;
-            @include line-clamp(1)
+            @include line-clamp(2)
         }
 
         &_channel {
             img {
                 width: 35px;
                 height: 35px;
-                border-radius: 99px;
                 margin-right: 0.5rem;
                 cursor: pointer;
             }

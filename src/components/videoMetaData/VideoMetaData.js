@@ -1,30 +1,48 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './videoMetaData.scss'
 import moment from 'moment'
 import numeral from 'numeral'
 import ShowMoreText from 'react-show-more-text'
 import { MdThumbUp, MdThumbDown } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import { channelSubscriptionStatus, getChannelDetail } from '../../redux/action/channelAction'
 
-const VideoMetaData = ({ video: {snippet, statistics}, videoId }) => {
+
+const VideoMetaData = ({ video, videoId, match }) => {
     
+    const dispatch = useDispatch();
+    const { 
+        channel
+    } = useSelector(state => state.channelDetail)
+  
+    const {subsriptionStatus} = useSelector(state => state.channelDetail)
+    
+    // const { channelId, channelTitle, description, title, publishedAt } = video?.snippet;
+    // const { viewCount, likeCount, dislikeCount } = video?.statistics;
+
+    useEffect(() => {
+        dispatch(getChannelDetail(video?.snippet?.channelId))
+        dispatch(channelSubscriptionStatus(video?.snippet?.channelId))
+    },[video?.snippet?.channelId, dispatch])
+
     return (
         <div className="videoMetaData py-2">
             <div className="videoMetaData_top">
-                <h5>Video Title</h5>
+                <h5>{video?.statistics?.title}</h5>
                 <div className="d-flex justify-content-between align-items-center">
                     <span>
-                        {numeral(1000000).format("0.a")} views •
-                        {moment('2021-05-05').fromNow()}
+                        {numeral(video?.statistics?.viewCount).format("0.a")} views •
+                        {moment(video?.snippet?.publishedAt).fromNow()}
                     </span>
 
                     <div>
                         <span className="mx-3">
                             <MdThumbUp size={26} /> 
-                            {numeral(10000).format("0.a")}
+                            {numeral(video?.statistics?.likeCount).format("0.a")}
                         </span>
                         <span className="">
                             <MdThumbDown size={26} />
-                            {numeral(10000).format("0.a")}
+                            {numeral(video?.statistics?.dislikeCount).format("0.a")}
                         </span>
                     </div>
                 </div>
@@ -33,21 +51,23 @@ const VideoMetaData = ({ video: {snippet, statistics}, videoId }) => {
             <div className="videoMetaData_channel d-flex justify-content-between align-items-center my-2 py-3">
                 <div className="d-flex">
                     <img
-                        src="https://e7.pngegg.com/pngimages/340/946/png-clipart-avatar-user-computer-icons-software-developer-avatar-child-face-thumbnail.png"
+                        src={channel?.snippet?.thumbnails?.default?.url}
                         alt=""
                         className="rounded-circle mr-3"
                     />
 
                     <div className="d-flex flex-column mx-3">
-                        <span>Backbench Coder</span>
-                        <span>{numeral(10000).format("0.a")} Subscribers</span>
+                        <span>{video?.snippet?.channelTitle}</span>
+                        <span>{numeral(channel?.statistics?.subscriberCount).format("0.a")} Subscribers</span>
                     </div>
                 </div>
 
-                <button className="btn border-0 m-2 p-2">Subscribe</button>
+                <button className={`btn border-0 m-2 p-2 ${subsriptionStatus && 'btn-gray'}`}>
+                    {subsriptionStatus ? 'Subscribed' : 'Subscribe'}
+                </button>
             </div>
 
-            <div className="videoMetaData_description">
+            <div className="videoMetaData_description"> 
                 <ShowMoreText
                     lines={3}
                     more="SHOW MORE"
@@ -55,16 +75,9 @@ const VideoMetaData = ({ video: {snippet, statistics}, videoId }) => {
                     anchorClass="showMoreText"
                     expanded={false}
                 >
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type 
-                    specimen book. It has survived not only five centuries, but also the leap into 
-                    electronic typesetting, remaining essentially unchanged. It was popularised in 
-                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                    and more recently with desktop publishing software like Aldus PageMaker including 
-                    versions of Lorem Ipsum.
+                    {video?.snippet?.description}
                 </ShowMoreText>
-            </div>
+            </div> 
         </div>
     )
 }

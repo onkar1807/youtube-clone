@@ -8,6 +8,7 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import './_app.scss'
 import { useSelector } from 'react-redux'
 import WatchScreen from './components/screens/watchScreen/WatchScreen'
+import SearchScreen from './components/screens/SearchScreen'
 
 
 const Layout = ({ children }) => {
@@ -55,9 +56,9 @@ const App = () => {
                 <LoginScreen />
             </Route>
 
-            <Route path="/search">
+            <Route path="/search/:query">
                 <Layout>
-                    <h1>Search Results</h1>
+                    <SearchScreen />
                 </Layout>
             </Route>
 

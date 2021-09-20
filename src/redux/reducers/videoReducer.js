@@ -1,4 +1,16 @@
-import { HOME_VIDEO_FAILURE, HOME_VIDEO_REQUEST, HOME_VIDEO_SUCCESS, SELECTED_VIDEO_FAILURE, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from "../actionType"
+import { HOME_VIDEO_FAILURE, 
+    HOME_VIDEO_REQUEST,
+    HOME_VIDEO_SUCCESS, 
+    RELATED_VIDEO_FAILS, 
+    RELATED_VIDEO_REQUEST, 
+    RELATED_VIDEO_SUCCESS, 
+    SEARCH_VIDEO_FAILS, 
+    SEARCH_VIDEO_REQUEST, 
+    SEARCH_VIDEO_SUCCESS, 
+    SELECTED_VIDEO_FAILURE, 
+    SELECTED_VIDEO_REQUEST, 
+    SELECTED_VIDEO_SUCCESS 
+    } from "../actionType"
 
 const initialState = {
     videos: [],
@@ -64,6 +76,68 @@ export const selectedVideosReducer = (state = {
                 loading: false,
                 error: action.payload,
                 video: null
+            }
+        
+        default: 
+            return state
+    }
+}
+
+
+export const relatedVideosReducer = (state = {
+    videoLoading: false,
+    videos: []
+}, action) => {
+    switch(action.type) {
+        case RELATED_VIDEO_REQUEST:
+            return {
+                ...state,
+                videoLoading: true
+            }
+
+        case RELATED_VIDEO_SUCCESS:
+            return {
+                ...state,
+                videos: action.payload,
+                videoLoading: false
+            }
+
+        case RELATED_VIDEO_FAILS:
+            return {
+                ...state,
+                videoLoading: false,
+                error: action.payload,
+            }
+        
+        default: 
+            return state
+    }
+}
+
+
+export const searchedVideosReducer = (state = {
+    videoLoading: false,
+    videos: []
+}, action) => {
+    switch(action.type) {
+        case SEARCH_VIDEO_REQUEST:
+            return {
+                ...state,
+                videoLoading: true
+            }
+
+        case SEARCH_VIDEO_SUCCESS:
+            return {
+                ...state,
+                videos: action.payload,
+                videoLoading: false
+            }
+
+        case SEARCH_VIDEO_FAILS:
+            return {
+                ...state,
+                videoLoading: false,
+                error: action.payload,
             }
         
         default: 

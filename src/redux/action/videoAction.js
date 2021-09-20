@@ -3,7 +3,13 @@ import { HOME_VIDEO_FAILURE,
     HOME_VIDEO_REQUEST, 
     SELECTED_VIDEO_REQUEST, 
     SELECTED_VIDEO_SUCCESS, 
-    SELECTED_VIDEO_FAILURE
+    SELECTED_VIDEO_FAILURE,
+    RELATED_VIDEO_REQUEST,
+    RELATED_VIDEO_SUCCESS,
+    RELATED_VIDEO_FAILS,
+    SEARCH_VIDEO_REQUEST,
+    SEARCH_VIDEO_SUCCESS,
+    SEARCH_VIDEO_FAILS
 } from "../actionType"
 import axios from '../../api'
 
@@ -95,6 +101,62 @@ export const getVideoById = (id) => async (dispatch) => {
         console.log(error.message);
         dispatch({
             type: SELECTED_VIDEO_FAILURE,
+            payload: error.message
+        })
+    }
+}
+
+
+export const getRelatedVideos = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: RELATED_VIDEO_REQUEST })
+
+        const {data} = await axios('/search', {
+            params: {
+                part: 'snippet',
+                relatedToVideoId: id,
+                maxResults: 15,
+                type: 'video'
+            }
+        })
+
+        dispatch({
+            type: RELATED_VIDEO_SUCCESS,
+            payload: data.items
+        })
+    } catch (error) {
+        console.log(error.response.data.message);
+        dispatch({
+            type: RELATED_VIDEO_FAILS,
+            payload: error.response.data.message
+        })
+    }
+}
+
+
+export const getVideosBySearch = (keyword) => async (dispatch) => {
+    try {
+        dispatch({
+            type: SEARCH_VIDEO_REQUEST
+        })
+
+        const {data} = await axios('/search', {
+            params: {
+                part: 'snippet',
+                maxResults: 20,
+                q: keyword,
+                type: 'video, channel'
+            },
+        })
+
+        dispatch({
+            type: SEARCH_VIDEO_SUCCESS,
+            payload: data.items
+        })
+    } catch (error) {
+        console.log(error.message)
+        dispatch({
+            type: SEARCH_VIDEO_FAILS,
             payload: error.message
         })
     }

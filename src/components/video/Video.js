@@ -7,7 +7,7 @@ import axios from '../../api'
 import './_video.scss'
 import { useHistory } from 'react-router';
 
-const Video = ({video}) => {
+const Video = ({video, channelScreen}) => {
 
     const {
         id,
@@ -19,7 +19,8 @@ const Video = ({video}) => {
             thumbnails: {
                 medium
             }
-        }
+        },
+        contentDetails
     } = video;
 
 
@@ -32,7 +33,7 @@ const Video = ({video}) => {
     const seconds = moment.duration(duration).asSeconds();
     const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
-    const _videoId = id?.videoId || id;
+    const _videoId = id?.videoId || contentDetails?.videoId || id;
 
 
     useEffect(() => {
@@ -86,11 +87,14 @@ const Video = ({video}) => {
                 <span>{moment(publishedAt).fromNow()}</span>
             </div>
 
-            <div className="video_channel">
-                {/* <img src={channelIcon?.url} alt="" /> */}
-                <LazyLoadImage src={channelIcon?.url} effect="blue" />
-                <p>{channelTitle}</p>
-            </div>
+            {   
+                !channelScreen &&
+                <div className="video_channel">
+                    {/* <img src={channelIcon?.url} alt="" /> */}
+                    <LazyLoadImage src={channelIcon?.url} effect="blue" />
+                    <p>{channelTitle}</p>
+                </div>
+            }
         </div>
     )
 }

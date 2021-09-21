@@ -13,7 +13,15 @@ const VideoHorizontal = ({ video, searchScreen, subScreen }) => {
 
     const {
         id,
-        snippet: {channelId, channeltitle, description, title, publishedAt, resourceId,  thumbnails: {medium}}
+        snippet: {
+            channelId, 
+            channeltitle,
+            description, 
+            title, 
+            publishedAt, 
+            resourceId,  
+            thumbnails: {medium}
+        }
     } = video;
 
     const isVideo = !(id.kind === 'youtube#channel' || subScreen)

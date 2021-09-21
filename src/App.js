@@ -9,6 +9,8 @@ import './_app.scss'
 import { useSelector } from 'react-redux'
 import WatchScreen from './components/screens/watchScreen/WatchScreen'
 import SearchScreen from './components/screens/SearchScreen'
+import Subscriptions from './components/screens/subscriptions/Subscriptions'
+import ChannelScreen from './components/screens/channelScreen/ChannelScreen'
 
 
 const Layout = ({ children }) => {
@@ -65,6 +67,18 @@ const App = () => {
             <Route path="/watch/:id">
                 <Layout>
                     <WatchScreen />
+                </Layout>
+            </Route>
+
+            <Route path="/feed/subscriptions">
+                <Layout>
+                    <Subscriptions />
+                </Layout>
+            </Route>
+
+            <Route path="/channel/:channelId">
+                <Layout>
+                    <ChannelScreen />
                 </Layout>
             </Route>
 

@@ -1,4 +1,7 @@
-import { HOME_VIDEO_FAILURE, 
+import { CHANNEL_DETAIL_FAILS,
+     CHANNEL_DETAIL_REQUEST, 
+    CHANNEL_VIDEOS_SUCCESS, 
+    HOME_VIDEO_FAILURE, 
     HOME_VIDEO_REQUEST,
     HOME_VIDEO_SUCCESS, 
     RELATED_VIDEO_FAILS, 
@@ -9,7 +12,10 @@ import { HOME_VIDEO_FAILURE,
     SEARCH_VIDEO_SUCCESS, 
     SELECTED_VIDEO_FAILURE, 
     SELECTED_VIDEO_REQUEST, 
-    SELECTED_VIDEO_SUCCESS 
+    SELECTED_VIDEO_SUCCESS, 
+    SUBSCRIPTION_VIDEO_FAILS, 
+    SUBSCRIPTION_VIDEO_REQUEST,
+    SUBSCRIPTION_VIDEO_SUCCESS
     } from "../actionType"
 
 const initialState = {
@@ -137,6 +143,68 @@ export const searchedVideosReducer = (state = {
             return {
                 ...state,
                 videoLoading: false,
+                error: action.payload,
+            }
+        
+        default: 
+            return state
+    }
+}
+
+
+export const getSubscriptionChannelReducer = (state = {
+    loading: false,
+    videos: []
+}, action) => {
+    switch(action.type) {
+        case SUBSCRIPTION_VIDEO_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case SUBSCRIPTION_VIDEO_SUCCESS:
+            return {
+                ...state,
+                videos: action.payload,
+                loading: false
+            }
+
+        case SUBSCRIPTION_VIDEO_FAILS:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            }
+        
+        default: 
+            return state
+    }
+}
+
+
+export const getChannelVideosReducer = (state = {
+    loading: false,
+    videos: []
+}, action) => {
+    switch(action.type) {
+        case CHANNEL_DETAIL_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case CHANNEL_VIDEOS_SUCCESS:
+            return {
+                ...state,
+                videos: action.payload,
+                loading: false
+            }
+
+        case CHANNEL_DETAIL_FAILS:
+            return {
+                ...state,
+                loading: false,
                 error: action.payload,
             }
         
